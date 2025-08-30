@@ -1,70 +1,146 @@
+/* Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #5f4444;
-  }
-  
-  header {
-    background-color: #483f3f;
-    color: #fff;
-    padding: 1rem 2rem;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav a:hover {
-    text-decoration: underline;
-  }
-  
-  .hero {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: white;
-    text-align: center;
-    padding: 4rem 2rem;
-  }
-  
-  .section {
-    padding: 3rem 2rem;
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  .project-card {
-    background-color: white;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border-left: 5px solid #1f1828;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    border-radius: 8px;
-  }
-  
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #676565;
-    color: white;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root styles */
+:root{
+  --bg:#141414;
+  --surface:#1f1f1f;
+  --muted:#9b9b9b;
+  --text:#e6e6e6;
+  --accent:#e50914; /* Netflix red */
+  --card-radius:10px;
+}
+
+body{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Navigation */
+.netflix-header{
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: linear-gradient(180deg, rgba(20,20,20,0.9), rgba(20,20,20,0.6));
+  backdrop-filter: blur(6px);
+}
+.netflix-nav{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 20px;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.site-logo{
+  color:var(--text);
+  font-weight:800;
+  letter-spacing:0.5px;
+  font-size:18px;
+}
+
+.netflix-nav ul{list-style:none;display:flex;gap:14px;align-items:center}
+.netflix-nav a{color:var(--muted);text-decoration:none;font-weight:600}
+.netflix-nav a:hover{color:var(--text)}
+.download-btn{background:var(--accent);color:white;padding:8px 12px;border-radius:4px;text-decoration:none;font-weight:700}
+.download-btn:hover{filter:brightness(0.95)}
+
+/* Hero */
+.netflix-hero{
+  min-height:66vh;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+.hero-content{position:relative;max-width:1100px;margin:0 auto;padding:48px 24px;z-index:2}
+.hero-title{font-size:44px;color:var(--text);font-weight:800;letter-spacing:1px;margin-bottom:8px}
+.hero-subtitle{font-size:28px;color:var(--muted);margin-bottom:16px}
+.hero-desc{color:var(--muted);font-size:16px;margin-bottom:20px}
+.hero-btn{display:inline-block;background:var(--accent);color:white;padding:12px 20px;border-radius:6px;text-decoration:none;font-weight:700}
+.hero-btn:hover{filter:brightness(0.95)}
+
+/* Sections */
+.netflix-section{max-width:1200px;margin:32px auto;padding:24px}
+.section-title{font-size:24px;margin-bottom:16px;color:var(--text);font-weight:700}
+
+/* Card grid */
+.netflix-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.netflix-card{background:var(--surface);padding:18px;border-radius:var(--card-radius);box-shadow:0 10px 30px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.02)}
+.netflix-card h3{color:var(--text);margin-bottom:8px;font-size:18px}
+.netflix-card p, .netflix-card li{color:var(--muted);line-height:1.5}
+
+/* Single card (about/contact) */
+.netflix-card p a{color:var(--accent);text-decoration:none}
+
+/* Footer */
+.netflix-footer{background:transparent;padding:28px 20px;text-align:center;color:var(--muted);font-size:14px}
+/* Subtle animations and interaction tweaks */
+
+/* Fade-up animation used for entry reveals */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero reveal */
+.hero-content{
+  position:relative;max-width:1100px;margin:0 auto;padding:48px 24px;z-index:2;
+  opacity:0;transform:translateY(10px);
+  animation: fadeUp .72s cubic-bezier(.2,.9,.3,1) forwards;
+  animation-delay:120ms;
+}
+
+/* Cards reveal + slight stagger using nth-child */
+.netflix-card{
+  background:var(--surface);padding:18px;border-radius:var(--card-radius);box-shadow:0 10px 30px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.02);
+  opacity:0;transform:translateY(14px);
+  animation: fadeUp .6s cubic-bezier(.2,.9,.3,1) forwards;
+}
+.netflix-cards .netflix-card:nth-child(1){animation-delay:.12s}
+.netflix-cards .netflix-card:nth-child(2){animation-delay:.18s}
+.netflix-cards .netflix-card:nth-child(3){animation-delay:.24s}
+.netflix-cards .netflix-card:nth-child(4){animation-delay:.30s}
+.netflix-cards .netflix-card:nth-child(5){animation-delay:.36s}
+.netflix-cards .netflix-card:nth-child(6){animation-delay:.42s}
+
+/* Hover micro-interactions */
+.netflix-card{
+  transition: transform .28s ease, box-shadow .28s ease;
+  will-change: transform;
+}
+.netflix-card:hover{
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:0 22px 50px rgba(0,0,0,0.65);
+}
+
+.hero-btn{transition: transform .18s ease, box-shadow .18s ease}
+.hero-btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(229,9,20,0.12)}
+
+/* Make sure images or other elements that might animate are smoother */
+img{max-width:100%;height:auto;display:block}
+
+/* Utility */
+@media (max-width:700px){
+  .hero-title{font-size:28px}
+  .hero-subtitle{font-size:18px}
+  .netflix-nav ul{gap:10px}
+  .netflix-nav{padding:12px}
+}
+
+@media (max-width:420px){
+  .netflix-nav ul{display:none}
+  .hero-content{padding:28px 16px}
+}
+
   
